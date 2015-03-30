@@ -321,7 +321,7 @@ class DockerSpawner(Spawner):
 
         # get the public-facing ip, port
         resp = yield self.docker('port', self.container_id, 8888)
-        if self.container_ip:
+        if self.container_ip_connect:
              connect_ip = self.container_ip_connect
         else:
              connect_ip = self.container_ip
