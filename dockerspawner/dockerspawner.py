@@ -51,6 +51,16 @@ class DockerSpawner(Spawner):
 
     container_id = Unicode()
     container_ip = Unicode('127.0.0.1', config=True)
+    container_ip_connect = Unicode(
+        '',
+        config=True,
+        help=dedent(
+            """
+            IP address that JupyterHub uses to conect to container ports.
+            When the IP address is not set, `container_ip` is used.  
+            """
+        )
+    )
     container_image = Unicode("jupyter/singleuser", config=True)
     container_prefix = Unicode(
         "jupyter",
@@ -311,7 +321,11 @@ class DockerSpawner(Spawner):
 
         # get the public-facing ip, port
         resp = yield self.docker('port', self.container_id, 8888)
-        self.user.server.ip = self.container_ip
+        if self.container_ip:
+             connect_ip = self.container_ip_connect
+        else:
+             connect_ip = self.container_ip
+        self.user.server.ip = connect_ip
         self.user.server.port = resp[0]['HostPort']
 
     @gen.coroutine
