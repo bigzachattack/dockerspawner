@@ -330,7 +330,7 @@ class DockerSpawner(Spawner):
             start_kwargs.update(extra_start_kwargs)
 
         # start the container
-        yield self.docker('start', self.container_id, **start_kwargs)
+        yield self.docker('start', self.container_id)
 
         # get the public-facing ip, port
         resp = yield self.docker('port', self.container_id, 8888)
