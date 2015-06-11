@@ -110,7 +110,7 @@ class DockerSpawner(Spawner):
         help=dedent(
             """
             If set, DockerSpawner will configure the containers to use
-            the specified IP to connect the hub api.  This is useful
+            the specified IP to connect to the hub api.  This is useful
             when the hub_api is bound to listen on all ports or is
             running inside of a container.
             """
